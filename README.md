@@ -20,6 +20,14 @@ It uses a .env file from ./scripts/dev.env for all the configurations
 **Clone the project**
 go get -u github.com/praveen001/go-rtmp-web-server
 
+**Dependencies**
+- node
+- yarn
+- ffmpeg 4.x
+- go 1.11.x
+- docker
+- docker-compose
+
 **Start web server**
 
 ```
