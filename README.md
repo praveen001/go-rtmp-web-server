@@ -6,10 +6,10 @@ go get -u github.com/praveen001/go-rtmp-web-server
 
 # RTMP Restreaming Server
 
-Similar to [restream.io](#https://restream.io).
+Restreaming server that can stream to Youtube, Twitch and Custom RTMP servers. Similar to [restream.io](https://restream.io)
 
-    - [Development setup](#start-server-for-development)
-    - [Production setup](#start-server-in-production-mode)
+- [Development setup](#start-server-for-development)
+- [Production setup](#start-server-in-production-mode)
 
 # Start server for development
 
