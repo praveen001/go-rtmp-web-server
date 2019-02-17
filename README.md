@@ -8,8 +8,8 @@ go get -u github.com/praveen001/go-rtmp-web-server
 
 Similar to [restream.io](#https://restream.io).
 
-    - [Development setup]()
-    - [Production setup]()
+    - [Development setup](#start-server-for-development)
+    - [Production setup](#start-server-in-production-mode)
 
 # Start server for development
 
