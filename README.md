@@ -11,6 +11,8 @@ Restreaming server that can stream to Youtube, Twitch and Custom RTMP servers. S
 - [Development setup](#start-server-for-development)
 - [Production setup](#start-server-in-production-mode)
 
+![Screenshot](https://raw.githubusercontent.com/praveen001/go-rtmp-web-server/master/screenshot.png)
+
 # Start server for development
 
 It consists of three components - a web server, RTMP restreaming server and frontend. You have to start them individually.
