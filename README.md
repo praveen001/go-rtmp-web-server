@@ -29,6 +29,8 @@ go get -u github.com/praveen001/go-rtmp-web-server
 - go 1.11.x
 - docker
 - docker-compose
+- mysql
+- redis
 
 **Start web server**
 
