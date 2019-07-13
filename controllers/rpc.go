@@ -6,8 +6,8 @@ import (
 	"net"
 	"os"
 
-	"github.com/praveen001/go-rtmp-grpc/pkg/api/v1"
-	"github.com/praveen001/go-rtmp-web-server/models"
+	"github.com/Ranganaths/go-rtmp-grpc/pkg/api/v1"
+	"github.com/Ranganaths/go-rtmp-web-server/models"
 	"google.golang.org/grpc"
 )
 

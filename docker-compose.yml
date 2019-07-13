@@ -18,11 +18,12 @@ services:
         container_name: rtmp
         links:
             - web
+            - redis
         build:
             context: .
             dockerfile: ./scripts/rtmp/Dockerfile
         env_file:
-            - ./scripts/prod.env
+            - ./scripts/dev.env
         entrypoint: ./wait-for-it.sh web:80 -- ./rtmp/init.sh
         restart: unless-stopped
         ports:
@@ -47,4 +48,4 @@ services:
             - 4005
             - 80
         env_file:
-            - ./scripts/prod.env
+            - ./scripts/dev.env

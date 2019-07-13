@@ -7,7 +7,7 @@ import (
 
 	"github.com/google/uuid"
 
-	"github.com/praveen001/go-rtmp-web-server/models"
+	"github.com/Ranganaths/go-rtmp-web-server/models"
 )
 
 // AddStream creates a new stream for an user

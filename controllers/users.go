@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/praveen001/go-rtmp-web-server/models"
+	"github.com/Ranganaths/go-rtmp-web-server/models"
 )
 
 // RegisterUser adds a new user to database

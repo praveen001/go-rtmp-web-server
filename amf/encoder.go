@@ -1,7 +1,7 @@
 package amf
 
 import (
-	"github.com/praveen001/joy4/format/flv/flvio"
+	"github.com/Ranganaths/joy4/format/flv/flvio"
 )
 
 // Encode the payload into AMF binary form

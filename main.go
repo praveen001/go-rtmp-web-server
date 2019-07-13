@@ -10,11 +10,11 @@ import (
 	"github.com/gomodule/redigo/redis"
 	"google.golang.org/grpc"
 
-	"github.com/praveen001/go-rtmp-grpc/pkg/api/v1"
-	"github.com/praveen001/go-rtmp-web-server/controllers"
-	"github.com/praveen001/go-rtmp-web-server/models"
-	"github.com/praveen001/go-rtmp-web-server/router"
-	"github.com/praveen001/go-rtmp-web-server/rtmp"
+	"github.com/Ranganaths/go-rtmp-grpc/pkg/api/v1"
+	"github.com/Ranganaths/go-rtmp-web-server/controllers"
+	"github.com/Ranganaths/go-rtmp-web-server/models"
+	"github.com/Ranganaths/go-rtmp-web-server/router"
+	"github.com/Ranganaths/go-rtmp-web-server/rtmp"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"

@@ -9,8 +9,8 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/praveen001/go-rtmp-grpc/pkg/api/v1"
-	"github.com/praveen001/go-rtmp-web-server/amf"
+	"github.com/Ranganaths/go-rtmp-grpc/pkg/api/v1"
+	"github.com/Ranganaths/go-rtmp-web-server/amf"
 	"github.com/praveen001/joy4/format/flv/flvio"
 	"github.com/praveen001/joy4/format/rtmp"
 	"github.com/praveen001/joy4/utils/bits/pio"
