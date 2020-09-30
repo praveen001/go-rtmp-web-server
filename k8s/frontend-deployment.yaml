@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: frontend-deployment
+  labels:
+    app: frontend
+
+spec:
+  selector:
+    matchLabels:
+      app: frontend
+
+  template:
+    metadata:
+      labels:
+        app: frontend
+
+    spec:
+      containers:
+      - name: multi-streamer-ui
+        image: praveenraj9495/multi-streamer-ui:v0.1.0
+        ports:
+        - containerPort: 80
