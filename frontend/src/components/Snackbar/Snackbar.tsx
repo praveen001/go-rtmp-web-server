@@ -35,7 +35,6 @@ class Toast extends React.Component<ToastProps> {
       <div>
         <IconButton
           color="inherit"
-          type="transparent"
           onClick={this.hideSnackbar(toast.id)}
           className={classes.closeButton}
         >

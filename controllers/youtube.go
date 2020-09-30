@@ -94,7 +94,7 @@ func (c *ApplicationContext) GoogleAuthCallback(w http.ResponseWriter, r *http.R
 	y, _ := youtube.New(conf.Client(context.Background(), token))
 
 	// live broadcast list api call to get default live broadcast
-	liveBroadcastListResponse, err := y.LiveBroadcasts.List("id,status,snippet,contentDetails").BroadcastType("persistent").Mine(true).Do()
+	liveBroadcastListResponse, err := y.LiveBroadcasts.List([]string{"id", "status", "snippet", "contentDetails"}).BroadcastType("persistent").Mine(true).Do()
 	if err != nil {
 		c.NewResponse(w).Status(200).SendJSON(Response{
 			Data: err.Error(),
@@ -104,7 +104,7 @@ func (c *ApplicationContext) GoogleAuthCallback(w http.ResponseWriter, r *http.R
 	boundStreamID := liveBroadcastListResponse.Items[0].ContentDetails.BoundStreamId
 
 	// live stream list api call to get default live stream associated to default live broadcast using bound stream id of live broadcast
-	liveStreamListResponse, err := y.LiveStreams.List("id,status,snippet,cdn").Id(boundStreamID).Do()
+	liveStreamListResponse, err := y.LiveStreams.List([]string{"id", "status", "snippet", "cdn"}).Id(boundStreamID).Do()
 	if err != nil {
 		c.NewResponse(w).Status(200).SendJSON(Response{
 			Data: err.Error(),

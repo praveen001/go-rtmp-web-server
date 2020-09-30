@@ -21,6 +21,7 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
+import { BaseUrl } from '../../config';
 import AddChannelContainer from '../../containers/AddChannelContainer';
 import { IChannel, IStats, IStream } from '../../models';
 import Twitch from '../Icons/Twitch';
@@ -28,7 +29,6 @@ import Youtube from '../Icons/Youtube';
 import VideoPlayer from '../Player/Player';
 import StreamStatusIcon from '../StreamStatusIcon/StreamStatusIcon';
 import Title from '../Title/Title';
-import { BaseUrl } from '../../config';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -133,7 +133,7 @@ class Dashboard extends React.Component<DashboardProps, IDashboardState> {
       muted: true,
       sources: [
         {
-          src: `${BaseUrl}/hls/${this.props.stream.key}/index.m3u8`,
+          src: `/hls-preview/${this.props.stream.key}/index.m3u8`,
           type: 'application/x-mpegURL'
         }
       ]

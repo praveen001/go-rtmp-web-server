@@ -8,12 +8,17 @@ import (
 	"os/exec"
 )
 
+// Path where hls playlist will get saved
+var (
+	HLSOutputBasePath = "/hls-preview/"
+)
+
 // InitPreviewServer ..
 func InitPreviewServer(ctx *StreamerContext) {
 	for {
 		select {
 		case streamKey := <-ctx.preview:
-			if len(os.Getenv("HLS_OUTPUT")) != 0 {
+			if len(HLSOutputBasePath) != 0 {
 				go makeHls(ctx, streamKey)
 			}
 			c := ctx.get(streamKey)
@@ -36,7 +41,7 @@ func makeHls(ctx *StreamerContext, streamKey string) {
 	if !ok {
 		fmt.Println("Not Found", streamKey)
 	}
-	output := os.Getenv("HLS_OUTPUT") + streamKey
+	output := HLSOutputBasePath + streamKey
 	if _, err := os.Stat(output); err != nil {
 		if os.IsNotExist(err) {
 			os.MkdirAll(output, os.ModePerm)

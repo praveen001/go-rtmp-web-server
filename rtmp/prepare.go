@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/praveen001/go-rtmp-grpc/pkg/api/v1"
+	v1 "github.com/praveen001/go-rtmp-grpc/pkg/api/v1"
 	"github.com/praveen001/go-rtmp-web-server/amf"
 	"github.com/praveen001/joy4/format/flv/flvio"
 	"github.com/praveen001/joy4/format/rtmp"
@@ -402,7 +402,6 @@ func (c *Connection) onPublish(command map[string]interface{}, messageStreamID u
 	redisMsgBytes, _ := json.Marshal(redisMsg)
 	c.Context.Redis.Do("PUBLISH", "Stream", redisMsgBytes)
 	c.Context.preview <- c.StreamKey
-	// c.prepareClient("rtmp://live-api-s.facebook.com:80/rtmp/2149054425146767?ds=1&s_sw=0&s_vt=api-s&a=AbwniKg-7CkiybO1", c.Clients[0])
 
 	for _, ch := range c.create(chunk) {
 		c.Writer.Write(ch)

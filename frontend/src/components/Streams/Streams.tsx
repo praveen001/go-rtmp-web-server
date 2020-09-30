@@ -65,7 +65,7 @@ class Streams extends React.Component<StreamsProps> {
       muted: true,
       sources: [
         {
-          src: `/hls/${stream.key}/index.m3u8`,
+          src: `/hls-preview/${stream.key}/index.m3u8`,
           type: 'application/x-mpegURL'
         }
       ]

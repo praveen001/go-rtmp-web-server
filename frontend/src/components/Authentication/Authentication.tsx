@@ -8,9 +8,9 @@ import React from 'react';
 import { Route, RouteComponentProps, Switch } from 'react-router';
 import DashboardContainer from '../../containers/DashboardContainer';
 import HeaderContainer from '../../containers/HeaderContainer';
-import SocketContainer from '../../containers/SocketContainer';
 import StreamsContainer from '../../containers/StreamsContainer';
-import StreamsLoaderContainer from '../../containers/StreamsLoaderContainer';
+import WebSocket from '../Socket/Socket';
+import StreamsLoader from '../Streams/StreamsLoader';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -48,8 +48,8 @@ class Authentications extends React.Component<AuthenticationProps> {
       <div>
         <HeaderContainer />
         <div className={classes.content}>
-          <StreamsLoaderContainer>
-            <SocketContainer>
+          <StreamsLoader>
+            <WebSocket>
               <Switch>
                 <Route
                   path="/streams/:streamId/dashboard"
@@ -57,8 +57,8 @@ class Authentications extends React.Component<AuthenticationProps> {
                 />
                 <Route path="/" component={StreamsContainer} />
               </Switch>
-            </SocketContainer>
-          </StreamsLoaderContainer>
+            </WebSocket>
+          </StreamsLoader>
         </div>
       </div>
     );

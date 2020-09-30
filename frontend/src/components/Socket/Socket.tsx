@@ -1,42 +1,34 @@
 import CircularProgress from '@material-ui/core/CircularProgress';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { connect, disconnect } from '../../actions/socketActions';
 import { SocketUrl } from '../../config';
 import { ApiStatus } from '../../models';
+import { IState } from '../../reducers';
 
-class Websocket extends React.Component<SocketProps> {
-  componentDidMount() {
-    this.props.connect(`${SocketUrl}/ws/connect?token=${this.props.token}`);
+const WebSocket: React.FC = props => {
+  const dispatch = useDispatch();
+  const { status, wasConnected, token } = useSelector((state: IState) => ({
+    status: state.socket.status,
+    wasConnected: state.socket.wasConnected,
+    token: state.auth.token
+  }));
+
+  useEffect(() => {
+    dispatch(connect(`${SocketUrl}/ws/connect?token=${token}`));
+    return () => dispatch(disconnect());
+  }, []);
+
+  if (status === ApiStatus.IN_PROGRESS) {
+    return <CircularProgress />;
   }
-
-  componentWillUnmount() {
-    this.props.disconnect();
+  if (status === ApiStatus.FAILURE) {
+    return <div>Unable to connect to websocket server</div>;
   }
-
-  render() {
-    if (this.props.status === ApiStatus.IN_PROGRESS) {
-      return <CircularProgress />;
-    }
-    if (this.props.status === ApiStatus.FAILURE) {
-      return <div>Unable to connect to websocket server</div>;
-    }
-    if (this.props.status === ApiStatus.SUCCESS) {
-      return this.props.children;
-    }
-    return null;
+  if (status === ApiStatus.SUCCESS) {
+    return <>{props.children}</>;
   }
-}
+  return null;
+};
 
-export interface ISocketStateProps {
-  status: ApiStatus;
-  wasConnected: boolean;
-  token: string;
-}
-
-export interface ISocketDispatchProps {
-  connect: (url: string) => {};
-  disconnect: () => {};
-}
-
-type SocketProps = ISocketStateProps & ISocketDispatchProps;
-
-export default Websocket;
+export default WebSocket;

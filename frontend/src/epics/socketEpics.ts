@@ -34,11 +34,6 @@ const connectEpic = (action$: ActionsObservable<Action>) =>
     .ofType(SocketActionTypes.CONNECT)
     .switchMap((action: IConnectAction) =>
       connectSocket(action.payload.url)
-        .catch(() =>
-          of(connect(action.payload.url))
-            .delay(5000)
-            .startWith(disconnected())
-        )
         .map(data => {
           const { type, ...payload } = data;
           return {
@@ -46,6 +41,11 @@ const connectEpic = (action$: ActionsObservable<Action>) =>
             payload
           };
         })
+        .catch(() =>
+          of(connect(action.payload.url))
+            .delay(5000)
+            .startWith(disconnected())
+        )
     );
 
 const connectedEpic = (action$: ActionsObservable<Action>) =>

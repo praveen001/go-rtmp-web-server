@@ -2,8 +2,7 @@ const path = require('path'),
   HtmlWebpackPlugin = require('html-webpack-plugin'),
   BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
     .BundleAnalyzerPlugin,
-  webpack = require('webpack'),
-  Dotenv = require('dotenv-webpack');
+  webpack = require('webpack');
 
 module.exports = {
   mode: 'development',
@@ -57,9 +56,6 @@ module.exports = {
     }),
     // new BundleAnalyzerPlugin(),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    new webpack.HotModuleReplacementPlugin(),
-    new Dotenv({
-      path: '../scripts/dev.env'
-    })
+    new webpack.HotModuleReplacementPlugin()
   ]
 };
