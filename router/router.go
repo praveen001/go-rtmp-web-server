@@ -2,7 +2,6 @@ package router
 
 import (
 	"net/http"
-	"os"
 
 	"github.com/go-chi/chi"
 	"github.com/praveen001/go-rtmp-web-server/controllers"
@@ -27,14 +26,12 @@ func New(ctx *controllers.ApplicationContext) http.Handler {
 
 	cr.Use(ctx.CORSHandler, ctx.LogHandler, ctx.RecoveryHandler)
 
+	cr.Mount("/ws", cr.websocketRouter())
+
 	cr.Route("/v1", func(r chi.Router) {
 		r.Mount("/api/users", cr.userRouter())
 		r.Mount("/api/streams", cr.streamRouter())
 		r.Mount("/api/channels", cr.channelRouter())
-		r.Mount("/api/ws", cr.websocketRouter())
-
-		fs := http.FileServer(http.Dir(os.Getenv("HLS_OUTPUT")))
-		r.Mount("/api/hls/{streamKey}/{file}", http.StripPrefix("/v1/api/hls/", fs))
 	})
 
 	return cr
