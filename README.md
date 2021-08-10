@@ -18,6 +18,8 @@ It consists of three components:
 
 # Running in development mode
 
+Update `./scripts/configs.env` and run 
+
 ```
 docker-compose up
 ```
@@ -25,6 +27,8 @@ docker-compose up
 # Running in production mode
 
 Production mode will run in a kubernetes cluster. 
+
+Configs should be done in `./k8s/api-deployment.yaml` (These will be moved out later).
 
 ```
 kubectl apply -f ./k8s/
