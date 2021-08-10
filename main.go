@@ -32,14 +32,14 @@ func main() {
 }
 
 func rtmpServer() {
-	conn, err := grpc.Dial(fmt.Sprintf("%s:%s", os.Getenv("GRPC_HOST"), os.Getenv("GRPC_PORT")), grpc.WithInsecure())
+	conn, err := grpc.Dial(fmt.Sprintf("%s:%s", os.Getenv("GRPC_HOST"), "4005"), grpc.WithInsecure())
 	if err != nil {
 		fmt.Println("GRPC Connection Error")
 		return
 	}
 	rpcClient := v1.NewUserChannelServiceClient(conn)
 
-	redisClient, err := redis.Dial("tcp", fmt.Sprintf("%s:%s", os.Getenv("REDIS_HOST"), os.Getenv("REDIS_PORT")))
+	redisClient, err := redis.Dial("tcp", fmt.Sprintf("%s:%s", os.Getenv("REDIS_HOST"), "6379"))
 	if err != nil {
 		panic("Unable to connect to Redis" + err.Error())
 	}
@@ -82,7 +82,7 @@ func webServer() {
 		MaxIdle:   80,
 		MaxActive: 100,
 		Dial: func() (redis.Conn, error) {
-			c, err := redis.Dial("tcp", fmt.Sprintf("%s:%s", os.Getenv("REDIS_HOST"), os.Getenv("REDIS_PORT")))
+			c, err := redis.Dial("tcp", fmt.Sprintf("%s:%s", os.Getenv("REDIS_HOST"), "6379"))
 			if err != nil {
 				panic("Redis connection failed " + err.Error())
 			}
@@ -105,7 +105,7 @@ func webServer() {
 
 	// Create a HTTP Server instance
 	srv := &http.Server{
-		Addr:    fmt.Sprintf("%s:%s", os.Getenv("HTTP_HOST"), os.Getenv("HTTP_PORT")),
+		Addr:    fmt.Sprintf("0.0.0.0:5000"),
 		Handler: router.New(appContext),
 	}
 

@@ -22,17 +22,8 @@ spec:
         persistentVolumeClaim:
           claimName: preview-persistent-volume-claim
       containers:
-      - name: preview-server
-        image: nginx
-        volumeMounts:
-        - name: preview-storage
-          mountPath: /usr/share/nginx/html/hls-preview
-          subPath: hls-preview
-        ports:
-        - containerPort: 80
-
       - name: multi-streamer-rtmp
-        image: praveenraj9495/multi-streamer-rtmp:v0.1.0
+        image: praveenraj9495/multi-streamer-rtmp:v0.2.0
         volumeMounts:
         - name: preview-storage
           mountPath: /hls-preview
@@ -40,11 +31,7 @@ spec:
         env:
         - name: REDIS_HOST
           value: redis-cluster-ip
-        - name: REDIS_PORT
-          value: '6379'
         - name: GRPC_HOST
           value: api-cluster-ip
-        - name: GRPC_PORT
-          value: '4005'
         ports:
         - containerPort: 1935

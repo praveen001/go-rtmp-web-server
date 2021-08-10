@@ -23,14 +23,15 @@ services:
             dockerfile: ./scripts/rtmp/Dockerfile
         volumes:
             - public:/hls-preview/
-        env_file:
-            - ./scripts/prod.env
         entrypoint: ./wait-for-it.sh web:80 -- ./rtmp/init.sh
         restart: unless-stopped
         ports:
             - "1935:1935"
         expose:
             - 1935
+        environment:
+            GRPC_HOST: web
+            REDIS_HOST: redis
 
     web:
         container_name: web
@@ -40,18 +41,32 @@ services:
         build:
             context: .
             dockerfile: ./scripts/web/Dockerfile
-        volumes:
-            - public:/usr/share/nginx/html/hls-preview/
         entrypoint: ./wait-for-it.sh db:3306 -- ./web/init.sh
         restart: unless-stopped
-        ports:
-            - "4005:4005"
-            - "80:80"
         expose:
             - 4005
-            - 80
+            - 5000
+        environment:
+            MYSQL_HOST: db
+            MYSQL_USER: streamer
+            MYSQL_PASSWORD: password
+            MYSQL_DATABASE: gotest
+            REDIS_HOST: redis
         env_file:
-            - ./scripts/prod.env
+            - ./scripts/configs.env
+
+    ui:
+        container_name: ui
+        build:
+            context: .
+            dockerfile: ./scripts/ui/Dockerfile
+        volumes:
+            - public:/usr/share/nginx/html/hls-preview/
+        restart: unless-stopped
+        ports:
+            - "80:80"
+        expose:
+            - 80
 
 volumes:
     public:

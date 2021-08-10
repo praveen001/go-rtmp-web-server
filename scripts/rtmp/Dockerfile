@@ -21,8 +21,8 @@ RUN apk update && apk add bash
 RUN apk add --no-cache ffmpeg
 
 WORKDIR /app
+COPY ./scripts .
+RUN chmod +x -R .
 
 # Copy WebServer binary to bin
 COPY --from=build-backend /go/src/github.com/praveen001/go-rtmp-web-server/go-rtmp-web-server /usr/local/bin
-
-RUN chmod +x -R .

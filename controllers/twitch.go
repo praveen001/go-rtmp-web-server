@@ -20,7 +20,7 @@ var redirectURL string
 func InitTwitch() {
 	clientID = os.Getenv("TWITCH_CLIENT_ID")
 	clientSecret = os.Getenv("TWITCH_CLIENT_SECRET")
-	redirectURL = os.Getenv("API_ENDPOINT") + os.Getenv("TWITCH_REDIRECT_URL")
+	redirectURL = os.Getenv("API_ENDPOINT") + "/v1/api/channels/twitch/callback"
 }
 
 // TwitchAuth ..
@@ -143,5 +143,5 @@ func (c *ApplicationContext) TwitchAuthCallback(w http.ResponseWriter, r *http.R
 	}
 	c.DB.Save(channel)
 
-	http.Redirect(w, r, os.Getenv("CLIENT_ENDPOINT")+"/streams/"+strconv.Itoa(streamID)+"/dashboard", http.StatusSeeOther)
+	http.Redirect(w, r, os.Getenv("UI_ENDPOINT")+"/streams/"+strconv.Itoa(streamID)+"/dashboard", http.StatusSeeOther)
 }
