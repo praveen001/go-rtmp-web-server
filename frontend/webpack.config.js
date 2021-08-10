@@ -16,7 +16,8 @@ module.exports = {
   devtool: 'inline-source-map',
 
   devServer: {
-    historyApiFallback: true
+    historyApiFallback: true,
+    disableHostCheck: true
   },
 
   output: {

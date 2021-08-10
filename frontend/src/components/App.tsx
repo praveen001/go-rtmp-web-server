@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 // Material-UI Components
 import {
@@ -35,6 +35,7 @@ class App extends React.Component<AppProps> {
           <Switch>
             <Route path="/get-started" component={LandingPage} />
             <Route path="/streams" component={AuthenticationContainer} />
+            <Redirect to="/get-started" />
           </Switch>
           <SnackbarContainer />
         </div>

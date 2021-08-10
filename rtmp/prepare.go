@@ -172,7 +172,6 @@ func (c *Connection) readChunk() (err error) {
 }
 
 func (c *Connection) handleChunk(chunk *rtmpChunk) {
-	fmt.Println("Handle Chunk", chunk.header.messageType)
 	switch chunk.header.messageType {
 
 	// Set Max Read Chunk Size

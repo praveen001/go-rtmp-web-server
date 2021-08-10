@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"net"
-	"os"
 
 	"github.com/praveen001/go-rtmp-grpc/pkg/api/v1"
 	"github.com/praveen001/go-rtmp-web-server/models"
@@ -40,7 +39,7 @@ func (s *UserChannelServiceServer) Get(ctx context.Context, r *v1.GetUserChannel
 
 // NewRPCServer ..
 func NewRPCServer(appContext *ApplicationContext) {
-	listener, err := net.Listen("tcp", fmt.Sprintf("%s:%s", os.Getenv("GRPC_HOST"), os.Getenv("GRPC_PORT")))
+	listener, err := net.Listen("tcp", fmt.Sprintf("0.0.0.0:4005"))
 	if err != nil {
 		fmt.Println("Error listening")
 		return

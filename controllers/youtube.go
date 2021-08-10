@@ -21,7 +21,7 @@ func InitYoutube() {
 	conf = &oauth2.Config{
 		ClientID:     os.Getenv("YOUTUBE_CLIENT_ID"),
 		ClientSecret: os.Getenv("YOUTUBE_CLIENT_SECRET"),
-		RedirectURL:  os.Getenv("API_ENDPOINT") + os.Getenv("YOUTUBE_REDIRECT_URL"),
+		RedirectURL:  os.Getenv("API_ENDPOINT") + "/v1/api/channels/youtube/callback",
 		Scopes: []string{
 			"https://www.googleapis.com/auth/userinfo.email",
 			"https://www.googleapis.com/auth/youtube.readonly",
@@ -124,5 +124,5 @@ func (c *ApplicationContext) GoogleAuthCallback(w http.ResponseWriter, r *http.R
 
 	// Add the channel and save it
 	c.DB.Save(channel)
-	http.Redirect(w, r, os.Getenv("CLIENT_ENDPOINT")+"/streams/"+strconv.Itoa(streamID)+"/dashboard", http.StatusSeeOther)
+	http.Redirect(w, r, os.Getenv("UI_ENDPOINT")+"/streams/"+strconv.Itoa(streamID)+"/dashboard", http.StatusSeeOther)
 }

@@ -19,8 +19,12 @@ spec:
     spec:
       containers:
       - name: multi-streamer-api
-        image: praveenraj9495/multi-streamer-api:v0.1.1
+        image: praveenraj9495/multi-streamer-api:v0.2.0
         env:
+        - name: API_ENDPOINT
+          value: http://localhost
+        - name: UI_ENDPOINT
+          value: http://localhost
         - name: MYSQL_USER
           value: multi-streamer
         - name: MYSQL_PASSWORD
@@ -31,32 +35,14 @@ spec:
           value: multi-streamer
         - name: REDIS_HOST
           value: redis-cluster-ip
-        - name: REDIS_PORT
-          value: '6379'
-        - name: HTTP_HOST
-          value: '0.0.0.0'
-        - name: HTTP_PORT
-          value: '5000'
-        - name: GRPC_HOST
-          value: '0.0.0.0'
-        - name: GRPC_PORT
-          value: '4005'
         - name: YOUTUBE_CLIENT_ID
           value: 813004830141-3tamleghb88jb8c38pjdfbobp2mg7qt3.apps.googleusercontent.com
         - name: YOUTUBE_CLIENT_SECRET
           value: 
-        - name: API_ENDPOINT
-          value: http://go-restream-test.com
-        - name: CLIENT_ENDPOINT
-          value: http://go-restream-test.com
-        - name: YOUTUBE_REDIRECT_URL
-          value: /v1/api/channels/youtube/callback
         - name: TWITCH_CLIENT_ID
           value: d72o1jp8j07z6z3km9zxaz266us9lx
         - name: TWITCH_CLIENT_SECRET
-          value: 
-        - name: TWITCH_REDIRECT_URL
-          value: /v1/api/channels/twitch/callback
+          value: mc6tzwdmpbapslalifmzycgpkn011w
         ports:
         - containerPort: 5000
         - containerPort: 4005

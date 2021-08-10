@@ -7,7 +7,7 @@
     "format": "prettier --write packages/**/src/**/*.{ts,tsx,js,jsx,json}",
     "lint": "tslint 'packages/**/src/**/*.{ts,tsx}'",
     "lint-fix": "tslint --fix 'packages/**/src/**/*.{ts,tsx}'",
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --host 0.0.0.0",
     "build": "webpack --config webpack.prod.js"
   },
   "husky": {
