@@ -7,12 +7,20 @@ services:
 
     db:
         container_name: db
+        restart: unless-stopped
         image: mysql:latest
+        command: --default-authentication-plugin=mysql_native_password
         environment:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_USER: streamer
             MYSQL_PASSWORD: password
             MYSQL_DATABASE: gotest
+        ports:
+            - 3306:3306
+        expose:
+            - 3306
+        volumes:
+            - storage:/var/lib/mysql
 
     rtmp:
         container_name: rtmp
@@ -23,7 +31,7 @@ services:
             dockerfile: ./scripts/rtmp/Dockerfile
         volumes:
             - public:/hls-preview/
-        entrypoint: ./wait-for-it.sh web:80 -- ./rtmp/init.sh
+        entrypoint: ./scripts/wait-for-it.sh web:80 -- air -c ./scripts/rtmp/.air.toml
         restart: unless-stopped
         ports:
             - "1935:1935"
@@ -35,13 +43,16 @@ services:
 
     web:
         container_name: web
+        restart: always
         links:
             - db
             - redis
         build:
             context: .
             dockerfile: ./scripts/web/Dockerfile
-        entrypoint: ./wait-for-it.sh db:3306 -- ./web/init.sh
+        entrypoint: ./scripts/wait-for-it.sh db:3306 -- air -c ./scripts/web/.air.toml
+        volumes:
+            - ./:/go/src/github.com/praveen001/go-rtmp-web-server
         restart: unless-stopped
         expose:
             - 4005
@@ -60,9 +71,23 @@ services:
         build:
             context: .
             dockerfile: ./scripts/ui/Dockerfile
+        entrypoint: yarn start
+        volumes:
+            - ./frontend/src/:/ui/src
+        restart: unless-stopped
+        expose:
+            - 8080
+
+    nginx:
+        container_name: nginx
+        links:
+            - web
+            - ui
+        build:
+            context: .
+            dockerfile: ./scripts/nginx/Dockerfile
         volumes:
             - public:/usr/share/nginx/html/hls-preview/
-        restart: unless-stopped
         ports:
             - "80:80"
         expose:
@@ -70,3 +95,4 @@ services:
 
 volumes:
     public:
+    storage:

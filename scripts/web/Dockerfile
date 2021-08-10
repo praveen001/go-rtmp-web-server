@@ -1,20 +1,18 @@
 ###########
 # BACKEND #
 ###########
-FROM golang AS build-backend
+FROM golang:1.14 AS api-builder
 
-COPY . /go/src/github.com/praveen001/go-rtmp-web-server
-RUN cd /go/src/github.com/praveen001/go-rtmp-web-server && go get && go install
+WORKDIR /go/src/github.com/praveen001/go-rtmp-web-server
 
+COPY ./go.sum .
+COPY ./go.mod .
 
-#########
-# NGINX #
-#########
-FROM nginx:stable
-
-WORKDIR /app
-COPY ./scripts .
 RUN chmod +x -R .
 
-# Copy WebServer binary to bin
-COPY --from=build-backend /go/bin/go-rtmp-web-server /usr/local/bin/
+RUN go mod download
+RUN curl -sSfL https://raw.githubusercontent.com/cosmtrek/air/master/install.sh | sh -s -- -b $(go env GOPATH)/bin
+
+COPY . .
+
+RUN chmod +x -R .
