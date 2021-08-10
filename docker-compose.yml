@@ -21,6 +21,8 @@ services:
         build:
             context: .
             dockerfile: ./scripts/rtmp/Dockerfile
+        volumes:
+            - public:/hls-preview/
         env_file:
             - ./scripts/prod.env
         entrypoint: ./wait-for-it.sh web:80 -- ./rtmp/init.sh
@@ -38,6 +40,8 @@ services:
         build:
             context: .
             dockerfile: ./scripts/web/Dockerfile
+        volumes:
+            - public:/usr/share/nginx/html/hls-preview/
         entrypoint: ./wait-for-it.sh db:3306 -- ./web/init.sh
         restart: unless-stopped
         ports:
@@ -48,3 +52,6 @@ services:
             - 80
         env_file:
             - ./scripts/prod.env
+
+volumes:
+    public:
