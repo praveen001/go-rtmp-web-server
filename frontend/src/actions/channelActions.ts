@@ -15,6 +15,7 @@ export enum ChannelActionTypes {
 }
 
 export function addChannel(
+  streamId: number,
   name: string,
   url: string,
   key: string
@@ -22,6 +23,7 @@ export function addChannel(
   return {
     type: ChannelActionTypes.ADD_CHANNEL,
     payload: {
+      streamId,
       name,
       url,
       key
@@ -105,6 +107,7 @@ export function deleteChannelSuccess(
 export interface IAddChannelAction {
   type: ChannelActionTypes.ADD_CHANNEL;
   payload: {
+    streamId: number;
     name: string;
     url: string;
     key: string;

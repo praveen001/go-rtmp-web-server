@@ -184,7 +184,7 @@ class Dashboard extends React.Component<DashboardProps, IDashboardState> {
                     </div>
                   </div>
                   <div>
-                    <Switch checked={channel.enabled} />
+                    {/* <Switch checked={channel.enabled} /> */}
                     <IconButton onClick={this.deleteChannel(channel.id)}>
                       <DeleteIcon />
                     </IconButton>

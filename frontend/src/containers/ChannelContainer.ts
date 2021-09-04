@@ -2,7 +2,8 @@ import { connect } from 'react-redux';
 
 // Types
 import AddChannelForm, {
-  IDispatchProps
+  IDispatchProps,
+  IOwnProps
 } from '../components/AddChannelForm/AddChannelForm';
 import { IState } from '../reducers';
 
@@ -10,14 +11,16 @@ import { IState } from '../reducers';
 import { addChannel } from '../actions/channelActions';
 
 function mapStateToProps(state: IState) {
-  return {};
+  return {
+    streamId: state.streams.streamId
+  };
 }
 
 const mapDispatchToProps: IDispatchProps = {
   addChannel
 };
 
-export default connect<{}, IDispatchProps>(
+export default connect<IOwnProps, IDispatchProps>(
   mapStateToProps,
   mapDispatchToProps
 )(AddChannelForm);
