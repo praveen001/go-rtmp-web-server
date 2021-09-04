@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: rtmp-deployment
+  labels:
+    deployment: rtmp
+
+spec:
+  selector:
+    matchLabels:
+      app: rtmp
+
+  template:
+    metadata:
+      labels:
+        app: rtmp
+
+    spec:
+      volumes:
+      - name: preview-storage
+        persistentVolumeClaim:
+          claimName: preview-persistent-volume-claim
+      containers:
+      - name: multi-streamer-rtmp
+        image: praveenraj9495/multi-streamer-rtmp:v0.2.0
+        volumeMounts:
+        - name: preview-storage
+          mountPath: /hls-preview
+          subPath: hls-preview
+        env:
+        - name: REDIS_HOST
+          value: redis-cluster-ip
+        - name: GRPC_HOST
+          value: api-cluster-ip
+        ports:
+        - containerPort: 1935

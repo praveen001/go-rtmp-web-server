@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: api-deployment
+  labels:
+    deployment: api
+
+spec:
+  selector:
+    matchLabels:
+      app: api
+
+  template:
+    metadata:
+      labels:
+        app: api
+
+    spec:
+      containers:
+      - name: multi-streamer-api
+        image: praveenraj9495/multi-streamer-api:v0.2.0
+        env:
+        - name: API_ENDPOINT
+          value: {{ .Values.endpoint.api }}
+        - name: UI_ENDPOINT
+          value: {{ .Values.endpoint.ui }}
+        - name: MYSQL_USER
+          value: {{ .Values.mysql.user }}
+        - name: MYSQL_PASSWORD
+          value: {{ .Values.mysql.password }}
+        - name: MYSQL_HOST
+          value: mysql-cluster-ip
+        - name: MYSQL_DATABASE
+          value: {{ .Values.mysql.database }}
+        - name: REDIS_HOST
+          value: redis-cluster-ip
+        - name: YOUTUBE_CLIENT_ID
+          value: {{ .Values.youtube.client_id }}
+        - name: YOUTUBE_CLIENT_SECRET
+          value: {{ .Values.youtube.client_secret }}
+        - name: TWITCH_CLIENT_ID
+          value: {{ .Values.twitch.client_id }}
+        - name: TWITCH_CLIENT_SECRET
+          value: {{ .Values.twitch.client_secret }}
+        ports:
+        - containerPort: 5000
+        - containerPort: 4005

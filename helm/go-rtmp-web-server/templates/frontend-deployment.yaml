@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: frontend-deployment
+  labels:
+    deployment: frontend
+
+spec:
+  selector:
+    matchLabels:
+      app: frontend
+
+  template:
+    metadata:
+      labels:
+        app: frontend
+
+    spec:
+      volumes:
+        - name: preview-storage
+          persistentVolumeClaim:
+            claimName: preview-persistent-volume-claim
+      containers:
+      - name: multi-streamer-ui
+        image: praveenraj9495/multi-streamer-ui:v0.2.0
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: preview-storage
+          mountPath: /usr/share/nginx/html/hls-preview
+          subPath: hls-preview

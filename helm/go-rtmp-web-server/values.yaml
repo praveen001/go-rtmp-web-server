@@ -1,0 +1,16 @@
+endpoint:
+  api: http://localhost
+  ui: http://localhost
+
+mysql:
+  user: multi-streamer
+  password: multi-streamer
+  database: multi-streamer
+
+youtube:
+  client_id: 813004830141-3tamleghb88jb8c38pjdfbobp2mg7qt3.apps.googleusercontent.com
+  client_secret: ''
+
+twitch:
+  client_id: d72o1jp8j07z6z3km9zxaz266us9lx
+  client_secret: mc6tzwdmpbapslalifmzycgpkn011w

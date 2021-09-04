@@ -28,8 +28,8 @@ docker-compose up
 
 Production mode will run in a kubernetes cluster. 
 
-Configs should be done in `./k8s/api-deployment.yaml` (These will be moved out later).
+Configs should be done in `./helm/go-rtmp-web-server/values.yaml`
 
 ```
-kubectl apply -f ./k8s/
+helm install go-restream ./helm/go-rtmp-web-server/
 ```
