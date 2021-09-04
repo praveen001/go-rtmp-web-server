@@ -112,7 +112,7 @@ export interface IOwnProps {
 
 export interface IDispatchProps {
   addChannel: (
-    streamId: string,
+    streamId: number,
     name: string,
     url: string,
     key: string
