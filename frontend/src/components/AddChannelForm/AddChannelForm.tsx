@@ -2,7 +2,6 @@ import React from 'react';
 
 // Material-UI Components
 import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
 import {
   createStyles,
   Theme,
@@ -10,18 +9,18 @@ import {
   WithStyles
 } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 
 const styles = (theme: Theme) =>
   createStyles({
     addChannelForm: {
-      height: '90%',
       display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
-    paper: {
-      width: 350,
-      padding: theme.spacing.unit * 2
+      flexDirection: 'column',
+      width: 450,
+      padding: theme.spacing.unit * 1,
+      paddingRight: 35,
+      marginRight: 20,
+      borderRight: `1px solid ${theme.palette.divider}`
     },
     row: {
       marginTop: 25,
@@ -51,7 +50,7 @@ class AddChannelForm extends React.Component<AddChannelFormProps> {
 
   addChannel = () => {
     const { name, url, key } = this.state;
-    this.props.addChannel(name, url, key);
+    this.props.addChannel(this.props.streamId, name, url, key);
   };
 
   render() {
@@ -60,47 +59,46 @@ class AddChannelForm extends React.Component<AddChannelFormProps> {
 
     return (
       <div className={classes.addChannelForm}>
-        <Paper className={classes.paper}>
+        <Typography variant="h6">Add Custom RTMP Endpoint</Typography>
+        <div>
+          <TextField
+            value={name}
+            onChange={this.changeName}
+            label="Name"
+            fullWidth={true}
+          />
+        </div>
+
+        <div className={classes.row}>
+          <TextField
+            value={url}
+            onChange={this.changeURL}
+            label="Server"
+            fullWidth={true}
+          />
+        </div>
+
+        <div className={classes.row}>
+          <TextField
+            type="password"
+            value={key}
+            onChange={this.changeKey}
+            label="Stream Key"
+            fullWidth={true}
+          />
+        </div>
+
+        <div className={classes.row}>
           <div>
-            <TextField
-              value={name}
-              onChange={this.changeName}
-              label="Name"
-              fullWidth={true}
-            />
+            <Button
+              onClick={this.addChannel}
+              variant="contained"
+              color="primary"
+            >
+              Add Channel
+            </Button>
           </div>
-
-          <div className={classes.row}>
-            <TextField
-              value={url}
-              onChange={this.changeURL}
-              label="Url"
-              fullWidth={true}
-            />
-          </div>
-
-          <div className={classes.row}>
-            <TextField
-              type="password"
-              value={key}
-              onChange={this.changeKey}
-              label="Stream Key"
-              fullWidth={true}
-            />
-          </div>
-
-          <div className={classes.row}>
-            <div>
-              <Button
-                onClick={this.addChannel}
-                variant="contained"
-                color="primary"
-              >
-                Add Channel
-              </Button>
-            </div>
-          </div>
-        </Paper>
+        </div>
       </div>
     );
   }
@@ -108,8 +106,19 @@ class AddChannelForm extends React.Component<AddChannelFormProps> {
 
 export default withStyles(styles)(AddChannelForm);
 
-export interface IDispatchProps {
-  addChannel: (name: string, url: string, key: string) => void;
+export interface IOwnProps {
+  streamId: number;
 }
 
-export type AddChannelFormProps = IDispatchProps & WithStyles<typeof styles>;
+export interface IDispatchProps {
+  addChannel: (
+    streamId: string,
+    name: string,
+    url: string,
+    key: string
+  ) => void;
+}
+
+export type AddChannelFormProps = IOwnProps &
+  IDispatchProps &
+  WithStyles<typeof styles>;

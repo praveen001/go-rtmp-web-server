@@ -1,5 +1,6 @@
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Dialog from '@material-ui/core/Dialog';
+import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import {
   createStyles,
@@ -11,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import React from 'react';
 import { BaseUrl } from '../../config';
+import ChannelContainer from '../../containers/ChannelContainer';
 import Facebook from '../Icons/Facebook';
 import Periscope from '../Icons/Periscope';
 import Twitch from '../Icons/Twitch';
@@ -22,16 +24,21 @@ const styles = (theme: Theme) =>
     dialog: {
       padding: theme.spacing.unit
     },
+    wrap: {
+      display: 'flex',
+      padding: theme.spacing.unit
+    },
     channelListWrap: {
       display: 'flex',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      flexDirection: 'column'
     },
     channelList: {
       display: 'flex',
       flexWrap: 'wrap'
     },
     channelTile: {
-      width: 200,
+      width: 150,
       height: 120,
       background: '#333',
       display: 'flex',
@@ -43,6 +50,9 @@ const styles = (theme: Theme) =>
     },
     logo: {
       width: '100%'
+    },
+    title: {
+      flex: 1
     }
   });
 
@@ -72,44 +82,51 @@ class AddChannel extends React.Component<AddChannelProps> {
             <CloseIcon />
           </IconButton>
         </Title>
-        <div className={classes.channelListWrap}>
-          <div className={classes.channelList}>
-            <ButtonBase
-              className={classes.channelTile}
-              onClick={this.add('youtube')}
-            >
-              <Youtube className={classes.logo} />
-              <Typography variant="caption" color="inherit">
-                Youtube
-              </Typography>
-            </ButtonBase>
-            <ButtonBase
-              className={classes.channelTile}
-              onClick={this.add('twitch')}
-            >
-              <Twitch className={classes.logo} />
-              <Typography variant="caption" color="inherit">
-                Twitch
-              </Typography>
-            </ButtonBase>
-            <ButtonBase
-              className={classes.channelTile}
-              onClick={this.add('facebook')}
-            >
-              <Facebook className={classes.logo} />
-              <Typography variant="caption" color="inherit">
-                Facebook
-              </Typography>
-            </ButtonBase>
-            <ButtonBase
-              className={classes.channelTile}
-              onClick={this.add('periscope')}
-            >
-              <Periscope className={classes.logo} />
-              <Typography variant="caption" color="inherit">
-                Periscope
-              </Typography>
-            </ButtonBase>
+        <div className={classes.wrap}>
+          <ChannelContainer />
+          <div className={classes.channelListWrap}>
+            <Typography variant="h6" className={classes.title}>
+              Choose from
+            </Typography>
+            <br />
+            <div className={classes.channelList}>
+              <ButtonBase
+                className={classes.channelTile}
+                onClick={this.add('youtube')}
+              >
+                <Youtube className={classes.logo} />
+                <Typography variant="caption" color="inherit">
+                  Youtube
+                </Typography>
+              </ButtonBase>
+              <ButtonBase
+                className={classes.channelTile}
+                onClick={this.add('twitch')}
+              >
+                <Twitch className={classes.logo} />
+                <Typography variant="caption" color="inherit">
+                  Twitch
+                </Typography>
+              </ButtonBase>
+              <ButtonBase
+                className={classes.channelTile}
+                onClick={this.add('facebook')}
+              >
+                <Facebook className={classes.logo} />
+                <Typography variant="caption" color="inherit">
+                  Facebook
+                </Typography>
+              </ButtonBase>
+              <ButtonBase
+                className={classes.channelTile}
+                onClick={this.add('periscope')}
+              >
+                <Periscope className={classes.logo} />
+                <Typography variant="caption" color="inherit">
+                  Periscope
+                </Typography>
+              </ButtonBase>
+            </div>
           </div>
         </div>
       </Dialog>

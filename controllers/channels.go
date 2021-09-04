@@ -18,6 +18,7 @@ func (c *ApplicationContext) AddChannel(w http.ResponseWriter, r *http.Request) 
 		})
 		return
 	}
+	channel.Enabled = true
 
 	stream := &models.Stream{
 		Model: models.Model{

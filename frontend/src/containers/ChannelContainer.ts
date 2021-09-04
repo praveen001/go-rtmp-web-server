@@ -10,7 +10,9 @@ import { IState } from '../reducers';
 import { addChannel } from '../actions/channelActions';
 
 function mapStateToProps(state: IState) {
-  return {};
+  return {
+    streamId: state.streams.streamId
+  };
 }
 
 const mapDispatchToProps: IDispatchProps = {
