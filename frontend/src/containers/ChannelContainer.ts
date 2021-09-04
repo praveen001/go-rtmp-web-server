@@ -2,7 +2,8 @@ import { connect } from 'react-redux';
 
 // Types
 import AddChannelForm, {
-  IDispatchProps
+  IDispatchProps,
+  IOwnProps
 } from '../components/AddChannelForm/AddChannelForm';
 import { IState } from '../reducers';
 
@@ -19,7 +20,7 @@ const mapDispatchToProps: IDispatchProps = {
   addChannel
 };
 
-export default connect<{}, IDispatchProps>(
+export default connect<IOwnProps, IDispatchProps>(
   mapStateToProps,
   mapDispatchToProps
 )(AddChannelForm);
